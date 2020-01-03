@@ -1,7 +1,7 @@
-import { BrowserModule,  } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
@@ -18,6 +18,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeRecipeComponent } from './recipes/home-recipe/home-recipe.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { DataStorageService } from './shared/data-storage.service';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { DataStorageService } from './shared/data-storage.service';
     DropdownDirective,
     HomeRecipeComponent,
     RecipeEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,16 @@ import { DataStorageService } from './shared/data-storage.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ShoppingListService, RecipeService, DataStorageService],
+  providers: [
+    ShoppingListService,
+    RecipeService,
+    DataStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
