@@ -10,13 +10,7 @@ import { CoreModule } from './core.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    SharedModule,
-    CoreModule
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, SharedModule, CoreModule],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
