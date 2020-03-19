@@ -18,9 +18,9 @@ import { SharedModule } from '../shared/shared.module';
     RecipeDetailComponent,
     RecipeEditComponent,
     RecipeStartComponent,
-    RecipesComponent
+    RecipesComponent,
   ],
-  imports: [ RouterModule, ReactiveFormsModule, RecipeRoutingModule, SharedModule],
-  providers: []
+  imports: [RouterModule, ReactiveFormsModule, RecipeRoutingModule, SharedModule],
+  providers: [],
 })
 export class RecipesModule {}

@@ -8,13 +8,13 @@ import { PlaceholderDirective } from '../shared/placeholder/placeholder.directiv
 
 @Component({
   selector: 'app-auth',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
 })
 export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode = true;
   isLoading = false;
   error: string = null;
-  @ViewChild(PlaceholderDirective, {static: true}) alertHost: PlaceholderDirective;
+  @ViewChild(PlaceholderDirective, { static: true }) alertHost: PlaceholderDirective;
 
   private closeSub: Subscription;
 
@@ -67,24 +67,21 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   private showErrorAlert(message: string) {
-    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
-      AlertComponent
-    );
+    const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
     const hostViewContainerRef = this.alertHost.viewContainerRef;
     hostViewContainerRef.clear();
 
     const componentRef = hostViewContainerRef.createComponent(alertCmpFactory);
 
     componentRef.instance.message = message;
-    this.closeSub = componentRef.instance.close.subscribe(()=> {
+    this.closeSub = componentRef.instance.closeEmitter.subscribe(() => {
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
     });
   }
   ngOnDestroy(): void {
-    if(this.closeSub){
+    if (this.closeSub) {
       this.closeSub.unsubscribe();
     }
-    
   }
 }
