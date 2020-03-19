@@ -3,17 +3,14 @@ import { Ingredient } from '../shared/ingredient.model';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>();
   startedEditing = new Subject<number>();
-  private ingredients: Ingredient[] = [
-    new Ingredient("Apples", 5),
-    new Ingredient("Tomatoes", 10)
-  ];
+  private ingredients: Ingredient[] = [new Ingredient('Apples', 5), new Ingredient('Tomatoes', 10)];
 
-  constructor() { }
+  constructor() {}
 
   getIngredients() {
     return this.ingredients.slice();
@@ -24,14 +21,11 @@ export class ShoppingListService {
   }
 
   setIngredient(ingredient: Ingredient) {
-    this.ingredients.push(new Ingredient(ingredient.name, ingredient.amount) );
+    this.ingredients.push(new Ingredient(ingredient.name, ingredient.amount));
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 
-  setIngredients( ingredients: Ingredient[]) {
-    // for (let ingredient of ingredients) {
-    //   this.setIngredient(ingredient);
-    // }
+  setIngredients(ingredients: Ingredient[]) {
     this.ingredients.push(...ingredients);
     this.ingredientsChanged.next(this.ingredients.slice());
   }
